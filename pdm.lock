@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:87c009ed13416bc230f3377723223d557723323910f77f89bda5cbcebc6952f9"
+content_hash = "sha256:f2f899c2a08b95c421f84caafe9a0f37819674bf60022e913681c53a427e85f6"
 
 [[package]]
 name = "asgiref"
@@ -53,6 +53,20 @@ files = [
 ]
 
 [[package]]
+name = "django-localflavor"
+version = "4.0"
+summary = "Country-specific Django helpers"
+groups = ["default"]
+dependencies = [
+    "django>=3.2",
+    "python-stdnum>=1.6",
+]
+files = [
+    {file = "django-localflavor-4.0.tar.gz", hash = "sha256:11859e522dba74aa6dde5a659242b1fbc5efb4dea08e9b77315402bdeca5194e"},
+    {file = "django_localflavor-4.0-py3-none-any.whl", hash = "sha256:7a5b1df03ca8e10df9d1b3c2e4314e43383067868183cdf41ab4e7a973694a8b"},
+]
+
+[[package]]
 name = "djangorestframework"
 version = "3.15.2"
 requires_python = ">=3.8"
@@ -64,6 +78,16 @@ dependencies = [
 files = [
     {file = "djangorestframework-3.15.2-py3-none-any.whl", hash = "sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20"},
     {file = "djangorestframework-3.15.2.tar.gz", hash = "sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad"},
+]
+
+[[package]]
+name = "python-stdnum"
+version = "1.20"
+summary = "Python module to handle standardized numbers and codes"
+groups = ["default"]
+files = [
+    {file = "python-stdnum-1.20.tar.gz", hash = "sha256:ad2a2cf2eb025de408210235f36b4ae31252de3186240ccaa8126e117cb82690"},
+    {file = "python_stdnum-1.20-py2.py3-none-any.whl", hash = "sha256:111008e10391d54fb2afad2a10df70d5cb0c6c0a7ec82fec6f022cb8712961d3"},
 ]
 
 [[package]]
