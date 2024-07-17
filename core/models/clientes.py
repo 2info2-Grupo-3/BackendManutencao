@@ -7,6 +7,9 @@ class Clientes(models.Model):
     data = models.DateField(null=False)
     telefone = models.CharField(max_length=15, null=False)
     endereco = models.CharField(max_length=100, null=False)
-
-    def __str__(self):
+    cidade = models.CharField(max_length=100, null=False, default="SuaCidade")
+    cep = models.CharField(max_length=8, null=False, default="00000000")
+    email = models.EmailField(max_length=100, null=False)
+    
+     def __str__(self):
         return self
