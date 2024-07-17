@@ -7,3 +7,6 @@ class Clientes(models.Model):
     data = models.DateField(null=False)
     telefone = models.CharField(max_length=15, null=False)
     endereco = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self
