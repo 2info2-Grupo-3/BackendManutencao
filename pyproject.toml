@@ -27,3 +27,4 @@ distribution = true
 runserver = "pdm run python manage.py runserver"
 makemigrations = "pdm run python manage.py makemigrations"
 migrate = "pdm run python manage.py migrate"
+createsuperuser = "pdm run python manage.py createsuperuser"
