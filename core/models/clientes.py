@@ -11,5 +11,9 @@ class Clientes(models.Model):
     cep = models.CharField(max_length=8, null=False, default="00000000")
     email = models.EmailField(max_length=100, null=False)
     
-     def __str__(self):
-        return self
+    def __str__(self):
+        return self.nome
+    
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
