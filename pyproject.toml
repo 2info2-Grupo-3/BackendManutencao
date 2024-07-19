@@ -3,7 +3,7 @@ name = "BackendManutencao"
 version = "0.1.0"
 description = "Default template for PDM package"
 authors = [
-    {name = "Anthony Loche", email = "anthonyloche.ifc@gmail.com"},
+    {name = "Anthony Loche", email = "anthonylocheifc@gmail.com"},
     {name = "Jonatas Peraza", email = "jonatassilvaperaza@gmail.com"}
     ]
 dependencies = [
