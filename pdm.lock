@@ -4,8 +4,8 @@
 [metadata]
 groups = ["default"]
 strategy = ["cross_platform", "inherit_metadata"]
-lock_version = "4.4.1"
-content_hash = "sha256:f2f899c2a08b95c421f84caafe9a0f37819674bf60022e913681c53a427e85f6"
+lock_version = "4.4.2"
+content_hash = "sha256:867975f59a45a3f16c3de62910f6d97c30de5edc89d3f59c36e8dfb3984d6e14"
 
 [[package]]
 name = "asgiref"
@@ -53,6 +53,20 @@ files = [
 ]
 
 [[package]]
+name = "django-extensions"
+version = "3.2.3"
+requires_python = ">=3.6"
+summary = "Extensions for Django"
+groups = ["default"]
+dependencies = [
+    "Django>=3.2",
+]
+files = [
+    {file = "django-extensions-3.2.3.tar.gz", hash = "sha256:44d27919d04e23b3f40231c4ab7af4e61ce832ef46d610cc650d53e68328410a"},
+    {file = "django_extensions-3.2.3-py3-none-any.whl", hash = "sha256:9600b7562f79a92cbf1fde6403c04fee314608fefbb595502e34383ae8203401"},
+]
+
+[[package]]
 name = "django-localflavor"
 version = "4.0"
 summary = "Country-specific Django helpers"
@@ -78,6 +92,29 @@ dependencies = [
 files = [
     {file = "djangorestframework-3.15.2-py3-none-any.whl", hash = "sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20"},
     {file = "djangorestframework-3.15.2.tar.gz", hash = "sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad"},
+]
+
+[[package]]
+name = "pydotplus"
+version = "2.0.2"
+summary = "Python interface to Graphviz's Dot language"
+groups = ["default"]
+dependencies = [
+    "pyparsing>=2.0.1",
+]
+files = [
+    {file = "pydotplus-2.0.2.tar.gz", hash = "sha256:91e85e9ee9b85d2391ead7d635e3d9c7f5f44fd60a60e59b13e2403fa66505c4"},
+]
+
+[[package]]
+name = "pyparsing"
+version = "3.1.2"
+requires_python = ">=3.6.8"
+summary = "pyparsing module - Classes and methods to define and execute parsing grammars"
+groups = ["default"]
+files = [
+    {file = "pyparsing-3.1.2-py3-none-any.whl", hash = "sha256:f9db75911801ed778fe61bb643079ff86601aca99fcae6345aa67292038fb742"},
+    {file = "pyparsing-3.1.2.tar.gz", hash = "sha256:a1bac0ce561155ecc3ed78ca94d3c9378656ad4c94c1270de543f621420f94ad"},
 ]
 
 [[package]]
