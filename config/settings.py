@@ -15,7 +15,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "core",
     "corsheaders",
-    "localflavor"
+    "localflavor",
+    "django_extensions"
 ]
 
 MIDDLEWARE = [
