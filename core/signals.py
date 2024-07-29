@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from .models import Entradas, Pecas, Saidas
+from .models import Entradas, Pecas, Saidas, Orcamento, OrcamentoServico, OrcamentoPeca
 
 @receiver(post_save, sender=Entradas)
 @receiver(post_delete, sender=Entradas)
@@ -30,3 +30,13 @@ def atualizar_quantidade_pecas_saida(sender, instance, **kwargs):
 
 
 ## pedi para o gpt verificar o codigo ele falou que tinha coisas duplicadas
+
+
+@receiver(post_save, sender=OrcamentoServico)
+@receiver(post_delete, sender=OrcamentoServico)
+@receiver(post_save, sender=OrcamentoPeca)
+@receiver(post_delete, sender=OrcamentoPeca)
+def atualizar_preco_sugerido(sender, instance, **kwargs):
+    orcamento = instance.orcamento
+    orcamento.calcular_preco_sugerido()
+    orcamento.atualizar_valor_total()
