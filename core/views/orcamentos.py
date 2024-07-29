@@ -1,7 +1,7 @@
 from rest_framework import viewsets
-from core.models import Orcamentos
+from core.models import Orcamento
 from core.serializers import OrcamentosSerializer
 
 class OrcamentosViewSet(viewsets.ModelViewSet):
-    queryset = Orcamentos.objects.all()
+    queryset = Orcamento.objects.all()
     serializer_class = OrcamentosSerializer

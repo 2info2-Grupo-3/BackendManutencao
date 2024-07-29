@@ -1,19 +1,19 @@
 from rest_framework import serializers
-from core.models import Orcamentos, OrcamentosPecas, OrcamentosServicos
+from core.models import Orcamento, OrcamentoPeca, OrcamentoServico
 from core.serializers import PecasSerializer, ServicosSerializer
 
 class OrcamentosPecasSerializer(serializers.ModelSerializer):
     peca = PecasSerializer()
 
     class Meta:
-        model = OrcamentosPecas
+        model = OrcamentoPeca
         fields = ['peca', 'quantidade']
 
 class OrcamentosServicosSerializer(serializers.ModelSerializer):
     servico = ServicosSerializer()
 
     class Meta:
-        model = OrcamentosServicos
+        model = OrcamentoServico
         fields = ['servico', 'valor']
 
 class OrcamentosSerializer(serializers.ModelSerializer):
@@ -22,5 +22,5 @@ class OrcamentosSerializer(serializers.ModelSerializer):
     servicos_orcamento = OrcamentosServicosSerializer(many=True)
 
     class Meta:
-        model = Orcamentos
+        model = Orcamento
         fields = ['id', 'cliente', 'data', 'valor_total', 'pecas_orcamento', 'servicos_orcamento']
