@@ -5,4 +5,4 @@ from core.models import Saidas
 class SaidasSerializer(ModelSerializer):
     class Meta:
         model = Saidas
-        fields = "__all__"
+        fields = ['id', 'cliente', 'data', 'valor_total']

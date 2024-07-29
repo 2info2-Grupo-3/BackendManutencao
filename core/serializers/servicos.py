@@ -5,4 +5,4 @@ from core.models import Servicos
 class ServicosSerializer(ModelSerializer):
     class Meta:
         model = Servicos
-        fields = "__all__"
+        fields = ['id', 'nome', 'preco']

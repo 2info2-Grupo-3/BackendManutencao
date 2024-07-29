@@ -5,4 +5,4 @@ from core.models import Pecas
 class PecasSerializer(ModelSerializer):
     class Meta:
         model = Pecas
-        fields = "__all__"
+        fields = ['id', 'nome', 'preco']
