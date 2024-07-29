@@ -18,17 +18,20 @@ class Orcamento(models.Model):
         FINALIZED = 3, "Finalized"
     
     status = models.IntegerField(choices=Status.choices, default=Status.DRAFT)
-    
+
     def calcular_preco_sugerido(self):
         total_servicos = sum(item.valor for item in self.servicos.all())
         total_pecas = sum(item.peca.preco * item.quantidade for item in self.pecas.all())
         self.preco_sugerido = total_servicos + total_pecas
-        self.save()
-    
+
     def atualizar_valor_total(self):
         self.valor_total = self.preco_sugerido + self.mao_de_obra - self.desconto
-        self.save()
-    
+
+    def save(self, *args, **kwargs):
+        self.calcular_preco_sugerido()
+        self.atualizar_valor_total()
+        super(Orcamento, self).save(*args, **kwargs)
+
     def __str__(self):
         return (f'ID: {self.id}, Cliente: {self.cliente.nome}, Data: {self.data}, '
                 f'Valor Total: {self.valor_total}, Preço Sugerido: {self.preco_sugerido}')
