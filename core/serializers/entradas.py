@@ -6,3 +6,8 @@ class EntradasSerializer(ModelSerializer):
     class Meta:
         model = Entradas
         fields = "__all__"
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['peca'] = instance.peca.nome
+        return representation
