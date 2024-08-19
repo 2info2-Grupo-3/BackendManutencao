@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from core.models import Orcamentos, OrcamentosPecas, OrcamentosServicos
-from core.models import Pecas, Servicos, Clientes
+from core.models import Orcamentos, OrcamentosPecas, OrcamentosServicos, Pecas, Servicos, Clientes
 
 class OrcamentosPecasSerializer(serializers.ModelSerializer):
     peca = serializers.PrimaryKeyRelatedField(queryset=Pecas.objects.all())
@@ -41,6 +40,29 @@ class OrcamentosSerializer(serializers.ModelSerializer):
             OrcamentosServicos.objects.create(orcamento=orcamento, servico=servico, **servico_data)
 
         return orcamento
+
+    def update(self, instance, validated_data):
+        pecas_data = validated_data.pop('pecas_orcamento', [])
+        servicos_data = validated_data.pop('servicos_orcamento', [])
+
+        instance.cliente = validated_data.get('cliente', instance.cliente)
+        instance.data = validated_data.get('data', instance.data)
+        instance.valor_total = validated_data.get('valor_total', instance.valor_total)
+        instance.save()
+
+        # Atualizar pecas_orcamento
+        instance.pecas_orcamento.all().delete()  # Limpar os dados existentes
+        for peca_data in pecas_data:
+            peca = peca_data.pop('peca')
+            OrcamentosPecas.objects.create(orcamento=instance, peca=peca, **peca_data)
+
+        # Atualizar servicos_orcamento
+        instance.servicos_orcamento.all().delete()  # Limpar os dados existentes
+        for servico_data in servicos_data:
+            servico = servico_data.pop('servico')
+            OrcamentosServicos.objects.create(orcamento=instance, servico=servico, **servico_data)
+
+        return instance
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
