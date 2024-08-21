@@ -17,13 +17,15 @@ class OrcamentosServicosSerializer(serializers.ModelSerializer):
 
 class OrcamentosSerializer(serializers.ModelSerializer):
     cliente = serializers.PrimaryKeyRelatedField(queryset=Clientes.objects.all())
+    status = serializers.ChoiceField(choices=Orcamentos.StatusOrcamento.choices)
     nome_cliente = serializers.CharField(source='cliente.nome', read_only=True)
+    status_nome = serializers.CharField(source='get_status_display', read_only=True)
     pecas_orcamento = OrcamentosPecasSerializer(many=True)
     servicos_orcamento = OrcamentosServicosSerializer(many=True)
 
     class Meta:
         model = Orcamentos
-        fields = ['id', 'cliente', 'nome_cliente', 'data', 'valor_total', 'pecas_orcamento', 'servicos_orcamento']
+        fields = ['id', 'cliente', 'nome_cliente', 'status', 'status_nome' ,  'data', 'valor_total', 'pecas_orcamento', 'servicos_orcamento']
 
     def create(self, validated_data):
         pecas_data = validated_data.pop('pecas_orcamento')
