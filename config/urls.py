@@ -9,7 +9,7 @@ from core.views import (
     PecasViewSet, 
     EntradasViewSet, 
     SaidasViewSet, 
-    OrcamentosViewSet
+    OrcamentosViewSet,
 )
 
 router = DefaultRouter()
@@ -23,4 +23,5 @@ router.register(r"orcamentos", OrcamentosViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
+    path("relatorios/", include("core.views.relatorios.router")),
 ]

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 30px;
+        color: #333;
+        margin-top: 20px;
+      }
+
+      header {
+        width: 100%;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        position: relative;
+      }
+
+      .headerGrid {
+        width: 90%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+
+      .headerGridItem {
+        padding: 10px;
+        border: 1px solid #333;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .grid {
+        display: grid;
+        width: 90%;
+        margin: 0 auto;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+
+      .gridItem {
+        padding: 10px;
+        border: 1px solid #333;
+        text-align: center;
+        height: 50px;
+      }
+
+      .pecas,
+      .servicos {
+        display: grid;
+        width: 90%;
+        margin: 10px auto;
+        grid-template-columns: 20% 80%;
+        border: 1px solid #333;
+        padding: 10px;
+      }
+
+      .pecas > p,
+      .servicos > p {
+        font-weight: bold;
+      }
+
+      footer {
+        width: 100%;
+        padding: 1rem;
+        background-color: #333;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+      }
+
+      @page {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Elvis Tech</header>
+    <h1>Relatório de Orçamentos</h1>
+
+    {% for orcamento in orcamentos %}
+    <hr />
+    <br />
+    <br />
+    <div class="headerGrid">
+      <div class="headerGridItem">Cliente:</div>
+      <div class="headerGridItem">Data:</div>
+      <div class="headerGridItem">Status:</div>
+      <div class="headerGridItem">Valor Total:</div>
+    </div>
+
+    <div class="grid">
+      <div class="gridItem">{{ orcamento.nome_cliente }}</div>
+      <div class="gridItem">{{ orcamento.data }}</div>
+      <div class="gridItem">{{ orcamento.status_nome }}</div>
+      <div class="gridItem">{{ orcamento.valor_total }}</div>
+    </div>
+
+    <div class="pecas">
+      <p>Peças:</p>
+      <div>
+        {% for peca_orcamento in orcamento.pecas_orcamento %} {{
+        peca_orcamento.peca.nome }} (Qtd: {{ peca_orcamento.quantidade }})<br />
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="servicos">
+      <p>Serviços:</p>
+      <div>
+        {% for servico_orcamento in orcamento.servicos_orcamento %} {{
+        servico_orcamento.servico.nome }} (Valor: {{ servico_orcamento.valor
+        }})<br />
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    <footer>Footer - Relatório gerado em: {{ data_geracao }}</footer>
+  </body>
+</html>
