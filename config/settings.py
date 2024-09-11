@@ -1,6 +1,9 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-w=8hkf2zdio@5ug0n%1s7e6^mdkknhue0&t!ja!@ymn^wor*2-'
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -36,7 +39,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Adicione seu caminho aqui
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
