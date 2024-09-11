@@ -7,44 +7,50 @@ from core.serializers import OrcamentosSerializer
 import os
 from datetime import datetime
 
-def gerar_relatorio_orcamentos(request, orcamento_id=None):
-    # Verifica se um ID de orçamento foi passado na URL
-    if orcamento_id:
-        orcamento = get_object_or_404(Orcamentos, id=orcamento_id)
-        serializer = OrcamentosSerializer(orcamento)
-        orcamentos_data = [serializer.data]
-    else:
-        # Caso nenhum ID seja passado, gera o relatório de todos os orçamentos
-        orcamentos = Orcamentos.objects.all()
-        serializer = OrcamentosSerializer(orcamentos, many=True)
-        orcamentos_data = serializer.data
-
-    # Obtenha a data e hora atual
-    data_geracao = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-
-    # Renderiza o HTML usando o template e os dados do orçamento
+def gerar_pdf_orcamento(orcamentos_data, data_geracao, orcamento_id=None):
+    """Função auxiliar para gerar o PDF a partir do template HTML"""
     html_string = render(
-        request, 
+        None, 
         "relatorios/relatorio_orcamentos.html", 
         {"orcamentos": orcamentos_data, "data_geracao": data_geracao}
     ).content.decode("utf-8")
-
+    
     # Gera o PDF a partir do HTML
     html = HTML(string=html_string)
-    pdf = html.write_pdf()
+    return html.write_pdf()
 
-    # Define o caminho onde o PDF será salvo
-    pdf_path = os.path.join(settings.MEDIA_ROOT, "relatorios", f"relatorio_orcamento_{orcamento_id or 'todos'}.pdf")
+def gerar_relatorio_orcamentos(request, orcamento_id=None):
+    try:
+        # Verifica se um ID de orçamento foi passado na URL
+        if orcamento_id:
+            orcamento = get_object_or_404(Orcamentos, id=orcamento_id)
+            serializer = OrcamentosSerializer(orcamento)
+            orcamentos_data = [serializer.data]
+        else:
+            # Caso nenhum ID seja passado, gera o relatório de todos os orçamentos
+            orcamentos = Orcamentos.objects.all()
+            serializer = OrcamentosSerializer(orcamentos, many=True)
+            orcamentos_data = serializer.data
 
-    # Cria o diretório se ele não existir
-    os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+        # Obtenha a data e hora atual
+        data_geracao = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-    # Salva o PDF no caminho especificado
-    with open(pdf_path, "wb") as f:
-        f.write(pdf)
+        # Gera o PDF
+        pdf = gerar_pdf_orcamento(orcamentos_data, data_geracao, orcamento_id)
 
-    # Retorna o PDF como resposta
-    response = HttpResponse(pdf, content_type="application/pdf")
-    response["Content-Disposition"] = f'attachment; filename="relatorio_orcamento_{orcamento_id or "todos"}.pdf"'
+        # Define o caminho onde o PDF será salvo
+        filename = f"relatorio_orcamento_{orcamento_id or 'todos'}.pdf"
+        pdf_path = os.path.join(settings.MEDIA_ROOT, "relatorios", filename)
 
-    return response
+        # Cria o diretório se ele não existir
+        os.makedirs(os.path.dirname(pdf_path), exist_ok=True)
+
+        # Salva o PDF no caminho especificado
+        with open(pdf_path, "wb") as f:
+            f.write(pdf)
+
+        # Retorna o PDF como resposta via `FileResponse`
+        return FileResponse(open(pdf_path, "rb"), as_attachment=True, filename=filename)
+
+    except Exception as e:
+        return HttpResponse(f"Erro ao gerar relatório: {str(e)}", status=500)

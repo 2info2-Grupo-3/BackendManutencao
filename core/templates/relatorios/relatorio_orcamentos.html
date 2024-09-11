@@ -109,20 +109,20 @@
     <div class="pecas">
       <p>Peças:</p>
       <div>
-        {% for peca_orcamento in orcamento.pecas_orcamento %} {{
-        peca_orcamento.peca.nome }} (Qtd: {{ peca_orcamento.quantidade }})<br />
+        {% for peca_orcamento in orcamento.pecas_orcamento %}
+          {{ peca_orcamento.peca.nome }} (Qtd: {{ peca_orcamento.quantidade }})<br />
         {% endfor %}
       </div>
     </div>
-
+    
     <div class="servicos">
       <p>Serviços:</p>
       <div>
-        {% for servico_orcamento in orcamento.servicos_orcamento %} {{
-        servico_orcamento.servico.nome }} (Valor: {{ servico_orcamento.valor
-        }})<br />
+        {% for servico_orcamento in orcamento.servicos_orcamento %}
+          {{ servico_orcamento.servico.nome }} (Valor: {{ servico_orcamento.valor }})<br />
         {% endfor %}
       </div>
+    </div>
     </div>
     {% endfor %}
     <footer>Footer - Relatório gerado em: {{ data_geracao }}</footer>
