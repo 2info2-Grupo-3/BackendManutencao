@@ -52,14 +52,12 @@ class OrcamentosSerializer(serializers.ModelSerializer):
         instance.valor_total = validated_data.get('valor_total', instance.valor_total)
         instance.save()
 
-        # Atualizar pecas_orcamento
-        instance.pecas_orcamento.all().delete()  # Limpar os dados existentes
+        instance.pecas_orcamento.all().delete()  
         for peca_data in pecas_data:
             peca = peca_data.pop('peca')
             OrcamentosPecas.objects.create(orcamento=instance, peca=peca, **peca_data)
 
-        # Atualizar servicos_orcamento
-        instance.servicos_orcamento.all().delete()  # Limpar os dados existentes
+        instance.servicos_orcamento.all().delete()  
         for servico_data in servicos_data:
             servico = servico_data.pop('servico')
             OrcamentosServicos.objects.create(orcamento=instance, servico=servico, **servico_data)
