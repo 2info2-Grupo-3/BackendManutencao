@@ -32,7 +32,7 @@ class OrcamentosSerializer(serializers.ModelSerializer):
         servicos_data = validated_data.pop('servicos_orcamento')
 
         orcamento = Orcamentos.objects.create(**validated_data)
-
+    
         for peca_data in pecas_data:
             peca = peca_data.pop('peca')
             OrcamentosPecas.objects.create(orcamento=orcamento, peca=peca, **peca_data)
@@ -44,11 +44,13 @@ class OrcamentosSerializer(serializers.ModelSerializer):
         return orcamento
 
     def update(self, instance, validated_data):
+        print(validated_data)
         pecas_data = validated_data.pop('pecas_orcamento', [])
         servicos_data = validated_data.pop('servicos_orcamento', [])
 
         instance.cliente = validated_data.get('cliente', instance.cliente)
         instance.data = validated_data.get('data', instance.data)
+        instance.status = validated_data.get('status', instance.status)
         instance.valor_total = validated_data.get('valor_total', instance.valor_total)
         instance.save()
 

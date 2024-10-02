@@ -6,7 +6,7 @@ from .pecas import Pecas
 
 class Orcamentos(models.Model):
     cliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)
-    data = models.DateField(default=timezone.now)
+    data = models.DateField(auto_now=True)
     valor_total = models.DecimalField(max_digits=10, decimal_places=2, null=False)
 
     class StatusOrcamento(models.IntegerChoices):
